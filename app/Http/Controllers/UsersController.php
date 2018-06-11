@@ -3,33 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Handlers\ImageUploadHandler;
-use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 
-class UsersController extends Controller
-{
-    public function show(User $user)
-    {
-        return view('users.show', compact("user"));
-    }
+class UsersController extends Controller {
+	public function __construct() {
+		$this->middleware('auth', ['except' => ['show']]);
+	}
 
-    public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
-    }
+	public function show(User $user) {
+		return view('users.show', compact("user"));
+	}
 
-    public function update(UserRequest $request,ImageUploadHandler $uploader, User $user)
-    {
-        $data = $request->all();
+	public function edit(User $user) {
+		$this->authorize('update', $user);
+		return view('users.edit', compact('user'));
+	}
 
-        if ($request->avatar) {
-            $result = $uploader->save($request->avatar, 'avatars', $user->id, 362);
-            if ($result) {
-                $data['avatar'] = $result['path'];
-            }
-        }
+	public function update(UserRequest $request, ImageUploadHandler $uploader, User $user) {
+		$this->authorize('update', $user);
+		$data = $request->all();
 
-        $user->update($data);
-        return redirect()->route('users.show', $user->id)->with('success', '个人资料更新成功！');
-    }
+		if ($request->avatar) {
+			$result = $uploader->save($request->avatar, 'avatars', $user->id, 362);
+			if ($result) {
+				$data['avatar'] = $result['path'];
+			}
+		}
+
+		$user->update($data);
+		return redirect()->route('users.show', $user->id)->with('success', '个人资料更新成功！');
+	}
 }
