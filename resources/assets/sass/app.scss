@@ -76,7 +76,7 @@ body {
 }
 
 /* Topic Index Page */
-.topics-index-page {
+.topics-index-page, .categories-show-page{
     .topic-list {
         .nav > li > a {
             position: relative;
@@ -96,7 +96,8 @@ body {
                margin-left: 6px;
             }
             span {
-                margin: 5px;
+                margin-left: 3px;
+                margin-right: 3px;
             }
         }
         .badge {
