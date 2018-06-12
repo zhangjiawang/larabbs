@@ -6,14 +6,16 @@ use App\Models\Category;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller {
-	public function show(Category $category, Request $request) {
+class CategoriesController extends Controller
+{
+    public function show(Category $category, Request $request)
+    {
 
-		$topics = Topic::with('user', 'category')
-			->withOrder($request->order)
-			->where("category_id", $category->id)
-			->paginate(20);
+        $topics = Topic::with('user', 'category')
+            ->withOrder($request->order)
+            ->where("category_id", $category->id)
+            ->paginate(20);
 
-		return view('topics.index', compact('topics', 'category'));
-	}
+        return view('topics.index', compact('topics', 'category'));
+    }
 }
