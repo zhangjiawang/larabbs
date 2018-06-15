@@ -26,10 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        \Carbon\Carbon::setLocale('zh');
 
-        \Horizon::auth(function ($request) {
-            // 是否是站长
-            return \Auth::user()->hasRole('Founder');
-        });
+        //
     }
 }
