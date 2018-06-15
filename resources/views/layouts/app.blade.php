@@ -35,6 +35,7 @@
 @endif
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
 @yield('scripts')
 
 </body>

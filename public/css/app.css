@@ -8465,6 +8465,10 @@ body {
   margin: 6px 0;
 }
 
+.users-show-page .reply-content > p > a {
+  color: #f4645f;
+}
+
 /* Topic Index Page */
 
 .topics-index-page .topic-list .nav > li > a,

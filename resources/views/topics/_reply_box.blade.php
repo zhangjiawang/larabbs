@@ -10,3 +10,25 @@
     </form>
 </div>
 <hr>
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.atwho.css') }}">
+@stop
+
+@section('scripts')
+    <script type="text/javascript"  src="{{ asset('js/jquery.atwho.js') }}"></script>
+    <script type="text/javascript"  src="{{ asset('js/jquery.caret.js') }}"></script>
+
+    <script>
+        $('textarea').atwho({
+            at: "@",
+            callbacks: {
+                remoteFilter: function(query, callback) {
+                  $.getJSON("/usersjson/" + query, '', function(data) {
+                    callback(data)
+                  });
+                }
+            }
+        })
+    </script>
+
+@stop
